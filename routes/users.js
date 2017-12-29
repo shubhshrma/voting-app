@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+var User = require('../models/user');
 //Register
 router.get('/register', function(req, res) {
 	res.render('register');
@@ -27,10 +28,27 @@ router.post('/register', function(req, res) {
 	req.checkBody('password2', 'Passwords do not match').equals(password);
 	var errors = req.validationErrors();
 	if(errors) {
-		console.log('YES');
+		res.render('register', {
+			errors: errors
+		});
 	}
-	else
-		console.log("NO");
+	else{
+		var newUser = new User({
+			name: name,
+			email: email,
+			username: username,
+			password: password
+		});
+
+		User.createUser(newUser, function(err, user){
+			if(err) throw err;
+			console.log(user);
+		});
+
+		req.flash('success_msg', 'You are registered and can login now.');
+		res.redirect('/users/login');
+	}
+	
 
 });
 
