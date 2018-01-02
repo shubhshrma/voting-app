@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
+var Poll = require('../models/poll');
+
 //Get homepage
-router.get('/', ensureAuthenticated,  function(req, res) {
-	res.render('index');
+router.get('/', function(req, res) {
+    Poll.getAllPolls(function(err, polls){
+    	if(err) throw err;
+ 		res.render('index', {polls: polls});
+    });
+	
 });
 
 function ensureAuthenticated(req, res, next) {
@@ -15,4 +21,13 @@ function ensureAuthenticated(req, res, next) {
 	}
 
 }
+
+router.get('/poll/:title', function(req, res) {
+	var title = req.params.title;
+	Poll.getPoll(title, function(err, poll){
+		if(err) throw err;
+		res.render('single_poll', {poll: poll});
+	});
+});
+
 module.exports = router;

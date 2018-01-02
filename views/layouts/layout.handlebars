@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login App</title>
+	<title>Voting App</title>
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
+  <script type="text/javascript" src="/js/script.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -14,9 +15,12 @@
             <li class="nav-item">
               <a class="nav-link" href="/">Dashboard <span class="sr-only">(current)</span></a>
             </li>
-              <li class="nav-item">
-              <a class="nav-link" href="/users/logout">Logout</a>
-              </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/users/newpoll">New Poll</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
             {{else}}
 
             <li class="nav-item">
@@ -28,7 +32,7 @@
             {{/if}}
           </ul>
         </nav>
-        <h3 class="text-muted">Login-app</h3>
+        <h3 class="text-muted">Voting-app</h3>
       </header>
 
       <main role="main">

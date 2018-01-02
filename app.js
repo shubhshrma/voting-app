@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/loginapp',{
+mongoose.connect('mongodb://localhost/votingapp',{
   useMongoClient: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -75,8 +75,6 @@ app.use(function (req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
-
-
 
 app.use('/', routes);
 app.use('/users', users);

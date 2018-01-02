@@ -1,3 +1,11 @@
 <h2 class="page-header">Dashboard</h2>
 <hr>
 <p>Welcome to your dashboard!</p>
+
+{{#if polls}}
+	{{#each polls}}
+		<div id="{{this.title}}" class=" alert alert-success " onclick="singlePoll(this.id)">
+			{{this.title}}
+		</div>
+	{{/each}}
+{{/if}}
