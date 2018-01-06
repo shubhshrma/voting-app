@@ -1,10 +1,11 @@
 <h2 class="page-header">You are voting for {{poll.title}}</h2>
 <hr>
- <div class="form-group">
+ <form class="form-group" method="POST" action="/vote/{{poll.title}}">
   <label for="sel1">Your options are:</label>
-  <select class="form-control" id="sel1">
+  <select class="form-control" id="sel1" name="option">
     {{#each poll.options }}
 		<option> {{this.name}} </option>
 	{{/each}}
   </select>
-</div> 
+  <input class="btn btn-block btn-primary" type="submit" value="Submit">
+</form> 

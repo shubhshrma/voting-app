@@ -38,6 +38,13 @@ module.exports.getPoll = function(title, callback) {
 module.exports.getAllPolls = function(callback) {
 	Poll.find({}, callback);
 }
+
+module.exports.updatePoll = function(title, obj, callback) {
+    console.log(1);
+    
+	Poll.update({ title: title }, { $set: { options: obj }}, callback);
+}
+
 /*module.exports.comparePassword = function(password, hash, callback) {
 	bcrypt.compare(password, hash, function(err, isMatch) {
 		if(err) throw err;

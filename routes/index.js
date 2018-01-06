@@ -22,6 +22,35 @@ function ensureAuthenticated(req, res, next) {
 
 }
 
+//POST req after vote on any poll
+router.post('/vote/:title', function(req, res) {
+
+	var option = req.body.option;
+    var title = req.params.title;
+    console.log(option);
+    Poll.getPoll(title, function(err, poll){
+		if(err) throw err;
+
+        for(var i=0;i<poll.options.length;i++)
+        {
+        	if(poll.options[i]["name"]===option)
+        		break;
+        }
+		//poll.set({ options: obj });
+        poll.options[i]["votes"]++;
+        poll.markModified('options.'+i+'.votes');
+		poll.save(function(err, newpoll){
+    		if(err) throw err;
+    		console.log(newpoll);
+    		req.flash('success_msg', 'Your response is recorded successfully.');
+    		res.redirect('/');
+    	});
+		
+	});
+    
+	
+});
+
 router.get('/poll/:title', function(req, res) {
 	var title = req.params.title;
 	Poll.getPoll(title, function(err, poll){
