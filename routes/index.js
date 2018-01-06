@@ -55,7 +55,7 @@ router.get('/poll/:title', function(req, res) {
 	var title = req.params.title;
 	Poll.getPoll(title, function(err, poll){
 		if(err) throw err;
-		res.render('single_poll', {poll: poll});
+		res.render('single_poll', {poll : encodeURIComponent(JSON.stringify(poll)), poll1:poll});
 	});
 });
 
