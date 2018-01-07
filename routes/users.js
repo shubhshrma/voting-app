@@ -93,10 +93,10 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post('/login', passport.authenticate('local', {successRedirect: '/', failureRedirect:'/users/login', failureFlash: true}), function(req, res) {
- 		res.redirect('/');
-    }
- )
+router.post('/login', passport.authenticate('local', {/*successRedirect: '/users/', */failureRedirect:'/users/login', failureFlash: true}), function(req, res) {
+ 		//console.log(1);
+ 		res.redirect('/users/'+req.user.username);
+});
 
 //Logout
 router.get('/logout', function(req, res) {
@@ -138,4 +138,35 @@ router.post('/newpoll', function(req, res) {
 	res.redirect('/');
 });
 
+//User page
+router.get('/:username',  function(req, res) {
+	if(req.user){
+		var username = req.params.username;
+		Poll.getPollsByUsername(username, function(err, polls) {
+			if(err) throw err;
+			res.render('user', {polls: polls});
+		});
+	}
+	else
+	{
+		req.flash('error_msg', 'You are not logged in. Please login first');
+		res.redirect('/users/login');
+	}
+});
+
+//User Poll
+router.get('/poll/:title', function(req, res) {
+	if(req.user){
+		var title = req.params.title;
+		Poll.getPoll(title, function(err, poll) {
+			if(err) throw err;
+			res.render('userpoll', {poll: poll});
+		});
+	}
+	else
+	{
+		req.flash('error_msg', 'You are not logged in. Please login first');
+		res.redirect('/users/login');
+	}
+});
 module.exports = router;

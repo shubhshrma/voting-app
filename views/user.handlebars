@@ -1,0 +1,12 @@
+<h2>Your Dashboard</h2>
+<hr>
+{{#if polls}}
+	<p>The polls you own are: </p>
+	{{#each polls}}
+		<div id="{{this.title}}" class=" alert alert-success " onclick="singleUserPoll(this.id)">
+			{{this.title}}
+		</div>
+	{{/each}}
+{{else}}
+	<h2> You currently don't own any polls. Create one by clicking on new poll above.</h2>
+{{/if}}

@@ -1,14 +1,5 @@
-<h2 class="page-header">You are voting for {{poll1.title}}</h2>
-<hr>
-<form class="form-group" method="POST" action="/vote/{{poll1.title}}">
-  <label for="sel1">Your options are:</label>
-  <select class="form-control" id="sel1" name="option">
-    {{#each poll1.options }}
-		<option> {{this.name}} </option>
-	{{/each}}
-  </select>
-  <input class="btn btn-block btn-primary" type="submit" value="Submit">
-</form> 
+<h2 class="page-header">You are editing your poll -  {{poll1.title}}</h2>
+<hr> 
 
 <div class="container">
     <canvas id="myChart"></canvas>
@@ -78,4 +69,11 @@
       }
     });
 </script>
-
+<form method="post" action="/users/poll/{{poll1.title}}">
+  <div class="form-group">
+    <label>Add option</label>
+    <input type="text" name="option" class="form-control" placeholder="The option you want to add in the poll">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<button class="btn btn-block btn-danger">Delete Poll</button>
