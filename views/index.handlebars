@@ -1,7 +1,7 @@
-<h2 class="page-header">All polls</h2>
+<h2 class="page-header">Welcome to the voting app!</h2>
 <hr>
-<p>Welcome to the voting app!</p>
-
+<h4>All polls</h4>
+<p>Click on one to vote. You can also register/login to create a new poll.</p>
 {{#if polls}}
 	{{#each polls}}
 		<div id="{{this.title}}" class=" alert alert-success " onclick="singlePoll(this.id)">
