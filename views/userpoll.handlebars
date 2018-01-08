@@ -11,7 +11,7 @@
     Chart.defaults.global.defaultFontFamily = 'Lato';
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#777';
-    var decodedJson = decodeURIComponent("{{{poll}}}");
+    var decodedJson = decodeURIComponent("{{poll}}");
     var poll = JSON.parse(decodedJson);
     
     console.log(poll);
@@ -71,9 +71,20 @@
 </script>
 <form method="post" action="/users/poll/{{poll1.title}}">
   <div class="form-group">
-    <label>Add option</label>
+    <label><h3>Add option</h3></label>
     <input type="text" name="option" class="form-control" placeholder="The option you want to add in the poll">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<button class="btn btn-block btn-danger">Delete Poll</button>
+<hr>
+
+<form method="post" action="/users/{{poll1.username}}/delete/{{poll1.title}}">
+  <div class="form-group">
+    <label><h3>Delete Poll</h3></label>
+    <input class="form-control" type="text" name="title" placeholder="Enter the name of this poll to delete it."/>
+  </div>
+  <button type="submit" class="btn btn-lg btn-block btn-danger">Delete Poll</button>
+</form>
+
+    
+ 

@@ -82,7 +82,6 @@ passport.use(new LocalStrategy(
 
   }));
 
-//Session storage
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -140,6 +139,7 @@ router.post('/newpoll', function(req, res) {
 
 //User page
 router.get('/:username',  function(req, res) {
+
 	if(req.user){
 		var username = req.params.username;
 		Poll.getPollsByUsername(username, function(err, polls) {
@@ -160,7 +160,7 @@ router.get('/poll/:title', function(req, res) {
 		var title = req.params.title;
 		Poll.getPoll(title, function(err, poll) {
 			if(err) throw err;
-			res.render('userpoll', {poll: poll});
+			res.render('userpoll', {poll : encodeURIComponent(JSON.stringify(poll)), poll1:poll});
 		});
 	}
 	else
@@ -169,4 +169,50 @@ router.get('/poll/:title', function(req, res) {
 		res.redirect('/users/login');
 	}
 });
+
+//Add option
+router.post('/poll/:title', function(req, res) {
+	if(req.user){
+		var option = req.body.option;
+		var title = req.params.title;
+		Poll.getPoll(title, function(err, poll) {
+			if(err) throw err;
+			poll.options.push({"name": option, "votes": 0});
+			poll.markModified('options');
+			poll.save(function(err, newpoll){
+    		if(err) throw err;
+    		console.log(newpoll);
+    		req.flash('success_msg', 'Your response is recorded successfully.');
+    		res.render('userpoll', {poll : encodeURIComponent(JSON.stringify(poll)), poll1:poll});
+    	});
+			
+		});
+	}
+	else
+	{
+		req.flash('error_msg', 'You are not logged in. Please login first');
+		res.redirect('/users/login');
+	}
+});
+
+//Delete poll
+router.post('/:username/delete/:title',  function(req, res) {
+	if(req.user){
+		var title = req.body.title;
+		var username = req.params.username;
+		console.log(title);
+		Poll.deletePoll(title, function(err) {
+			if(err) throw err;
+			req.flash('success_msg', 'Your poll is deleted as requested.');
+			console.log(1);
+			res.redirect('/users/'+username);
+		});
+	}
+	else
+	{
+		req.flash('error_msg', 'You are not logged in. Please login first');
+		res.redirect('/users/login');
+	}
+});
+
 module.exports = router;

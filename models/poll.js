@@ -43,7 +43,9 @@ module.exports.getPollsByUsername = function(username, callback) {
 	Poll.find( {username: username}, callback);
 }
 
-
+module.exports.deletePoll = function(title, callback) {
+	Poll.remove( {title: title}, callback);
+}
 /*module.exports.comparePassword = function(password, hash, callback) {
 	bcrypt.compare(password, hash, function(err, isMatch) {
 		if(err) throw err;
