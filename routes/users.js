@@ -5,7 +5,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var Poll = require('../models/poll');
-
+var keys = require('../config');
 //Register
 router.get('/register', function(req, res) {
 	res.render('register');
@@ -92,7 +92,8 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post('/login', passport.authenticate('local', {/*successRedirect: '/users/', */failureRedirect:'/users/login', failureFlash: true}), function(req, res) {
+
+router.post('/login', passport.authenticate('local', {failureRedirect:'/users/login', failureFlash: true}), function(req, res) {
  		//console.log(1);
  		res.redirect('/users/'+req.user.username);
 });
@@ -102,7 +103,7 @@ router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success_msg', 'You are logged out.');
 	res.redirect('/users/login');
-})
+});
 
 //New Poll
 router.get('/newpoll', function(req, res) {
@@ -144,7 +145,7 @@ router.get('/:username',  function(req, res) {
 		var username = req.params.username;
 		Poll.getPollsByUsername(username, function(err, polls) {
 			if(err) throw err;
-			res.render('user', {polls: polls});
+			res.render('user', {polls: polls, name:req.user.name});
 		});
 	}
 	else
