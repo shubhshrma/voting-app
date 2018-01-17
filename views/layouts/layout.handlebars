@@ -5,65 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
-  <script type="text/javascript" src="/js/script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
 </head>
 <body>
 	<div class="container">
-      <header class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            {{#if user}}
-            <li class="nav-item">
-              <a class="nav-link" href="/users/{{user.username}}">Dashboard <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/users/newpoll">New Poll</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/users/logout">Logout</a>
-            </li>
-            {{else}}
+    <header class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a id="home-link" class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+          </li>
+          {{#if user}}
+          <li class="nav-item">
+            <a id="profile-link" class="nav-link" href="/users/{{user.username}}">Dashboard<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+          <a id="newpoll-link" class="nav-link" href="/users/newpoll">New Poll</a>
+          </li>
+          <li class="nav-item">
+          <a id="logout-link" class="nav-link" href="/users/logout">Logout</a>
+          </li>
+          {{else}}
 
-            <li class="nav-item">
-              <a class="nav-link" href="/users/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/register">Register</a>
-            </li>
-            {{/if}}
-          </ul>
-        </nav>
-        <h3 class="text-muted"><a href="/">Voting-app</a></h3>
-      </header>
+          <li class="nav-item">
+            <a id="login-link" class="nav-link" href="/users/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a id="register-link" class="nav-link" href="/users/register">Register</a>
+          </li>
+          {{/if}}
+        </ul>
+      </nav>
+      <h3 class="text-muted">Voting-app</h3>
+    </header>
 
-      <main role="main">
+    <main role="main">
 
-        
+      
 
-        <div class="row">
-          <div class="col-lg-12">
-            {{#if success_msg}}
-              <div class="alert alert-success">{{success_msg}}</div>
-            {{/if}}
-            {{#if error_msg}}
-              <div class="alert alert-danger">{{error_msg}}</div>
-            {{/if}}
-            {{#if error}}
-              <div class="alert alert-danger">{{error}}</div>
-            {{/if}}
-          	{{{body}}}
-            
-          </div>
+      <div class="row">
+        <div class="col-lg-12">
+          {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+          {{/if}}
+          {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+          {{/if}}
+          {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+          {{/if}}
+        	{{{body}}}
+          
         </div>
+      </div>
 
-      </main>
+    </main>
 
-      <footer class="footer">
-        <p>&copy; Company 2017</p>
-      </footer>
+    <footer class="footer">
+      <p>&copy; Company 2017</p>
+    </footer>
 
-    </div> <!-- /container -->
+  </div> <!-- /container -->
 
 </body>
 </html>

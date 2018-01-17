@@ -1,6 +1,14 @@
-<h2 class="page-header">Welcome to the voting app!</h2>
-<hr>
-<h4>All polls</h4>
+
+<div class="jumbotron">
+    <h1>Voting App</h1>
+    <p class="lead">A voting webapp that lets you create polls and vote on anybody else's polls.</p>
+    {{#if user}}
+    <p><a class="btn btn-lg btn-success" href="/users/{{user.username}}" role="button">Dashboard</a></p>
+    {{else}}
+    <p><a class="btn btn-lg btn-success" href="/users/register" role="button">Sign up today</a></p>
+    {{/if}}
+</div>
+<h3>All polls</h3>
 <p>Click on one to vote. You can also register/login to create a new poll.</p>
 {{#if polls}}
 	{{#each polls}}
@@ -9,3 +17,8 @@
 		</div>
 	{{/each}}
 {{/if}}
+<script>
+	$(document).ready(function() {
+		$("#home-link").addClass("active");
+	});
+</script>

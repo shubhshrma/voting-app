@@ -7,7 +7,7 @@ var Poll = require('../models/poll');
 router.get('/', function(req, res) {
     Poll.getAllPolls(function(err, polls){
     	if(err) throw err;
- 		res.render('index', {polls: polls});
+ 		res.render('index', {polls: polls, user: req.user});
     });
 	
 });
